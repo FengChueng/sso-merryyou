@@ -31,15 +31,16 @@ public class SsoAuthorizationServerConfig extends AuthorizationServerConfigurerA
         clients.inMemory()
                 .withClient("merryyou1")
                 .secret("merryyousecrect1")
-                .authorizedGrantTypes("authorization_code", "refresh_token")
+                .authorizedGrantTypes("authorization_code","client_credentials", "refresh_token")
                 .scopes("all","read","write")
                 .autoApprove(true)
                 .and()
                 .withClient("merryyou2")
                 .secret("merryyousecrect2")
-                .authorizedGrantTypes("authorization_code", "refresh_token")
+                .authorizedGrantTypes("authorization_code","password", "refresh_token")
                 .scopes("all","read","write")
-                .autoApprove(true);
+//                .autoApprove(true)
+        ;
     }
 
     /**
@@ -50,6 +51,21 @@ public class SsoAuthorizationServerConfig extends AuthorizationServerConfigurerA
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(jwtTokenStore()).accessTokenConverter(jwtAccessTokenConverter());
+//        endpoints.approvalStore(new TokenApprovalStore());
+//        endpoints.userApprovalHandler(new TokenStoreUserApprovalHandler());
+//        endpoints.pathMapping()
+//        endpoints.approvalStore();
+//        endpoints.authenticationManager();
+//        endpoints.authorizationCodeServices();
+//        endpoints.prefix();
+//        endpoints.setClientDetailsService();
+//        endpoints.tokenEnhancer();
+//        endpoints.tokenGranter();
+//        endpoints.tokenStore();
+//        endpoints.tokenServices();
+//        endpoints.userApprovalHandler(null);
+//        endpoints.userDetailsService(null);
+
     }
 
     /**
@@ -60,6 +76,11 @@ public class SsoAuthorizationServerConfig extends AuthorizationServerConfigurerA
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.tokenKeyAccess("isAuthenticated()");
+//        security.accessDeniedHandler();
+//        security.addTokenEndpointAuthenticationFilter();
+//        security.authenticationEntryPoint();
+//        security.checkTokenAccess();
+//        security.passwordEncoder();
     }
 
     /**

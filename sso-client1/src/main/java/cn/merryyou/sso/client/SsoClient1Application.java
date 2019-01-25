@@ -1,11 +1,13 @@
 package cn.merryyou.sso.client;
 
+import org.apache.catalina.filters.RequestDumperFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
@@ -34,7 +36,7 @@ public class SsoClient1Application {
         return user;
     }
 
-    @Value("${messages.url:http://sso-resource:8085}/resource/api")
+    @Value("${messages.url:http://localhost:8085}/resource/api")
     String messagesUrl;
 
     public static void main(String[] args) {
@@ -50,5 +52,11 @@ public class SsoClient1Application {
     @Bean
     OAuth2RestTemplate oAuth2RestTemplate(OAuth2ClientContext oAuth2ClientContext, OAuth2ProtectedResourceDetails details){
         return new OAuth2RestTemplate(details,oAuth2ClientContext);
+    }
+
+    @Profile("!cloud")
+    @Bean
+    RequestDumperFilter requestDumperFilter() {
+        return new RequestDumperFilter();
     }
 }

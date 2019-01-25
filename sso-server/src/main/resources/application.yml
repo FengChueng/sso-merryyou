@@ -16,3 +16,12 @@ spring:
     prefer-file-system-access: true
     suffix: .ftl
     template-loader-path: classpath:/templates/
+
+logging:
+  level:
+    root: info
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    com.merryyou: debug
+    org.apache.catalina.session.ManagerBase: debug
+  file: logs/feng-security.log
